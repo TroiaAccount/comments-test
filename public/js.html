@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Comments</title>
+</head>
+<body>
+<script>
+    const query = `
+            query GetComments($sortBy: String, $sortOrder: String, $page: Int) {
+    comments(sortBy: $sortBy, sortOrder: $sortOrder, page: $page) {
+        data {
+            id
+            user_name
+            email
+            home_page
+            file
+            file_type
+            text
+            parent_id
+            created_at
+            updated_at
+        }
+        paginatorInfo {
+            currentPage
+            lastPage
+            total
+        }
+    }
+}
+
+        `;
+
+    const variables = {
+        sortBy: 'created_at', // Установите значение по умолчанию, если нужно
+        sortOrder: 'desc', // Установите значение по умолчанию, если нужно
+        page: 1 // Установите значение по умолчанию, если нужно
+    };
+
+    fetch('http://127.0.0.1:8000/graphql', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query, variables }),
+    })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+</script>
+</body>
+</html>

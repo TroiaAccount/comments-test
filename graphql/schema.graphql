@@ -1,0 +1,17 @@
+type Query {
+    comments(sortBy: String, sortOrder: String, page: Int): [Comment!]! @paginate(defaultCount: 25)
+}
+
+type Comment {
+    id: ID!
+    user_name: String!
+    email: String!
+    home_page: String
+    file: String
+    file_type: Int
+    text: String!
+    parent_id: ID
+    created_at: String
+    updated_at: String
+}
+
